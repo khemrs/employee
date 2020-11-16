@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Add New Employee</h1>
+    <form th:action="@{/employee}" ModelAttribute="employees" method="post" >
+        <table>
+
+            <tr><td>Name:</td><td><input type="text" name="name" th:value="${employee!=null?employee.name:''}" />
+                <input type="hidden" th:value="${employee!=null?employee.id:''}" name="id"> </td></tr>
+
+            <tr><td>Address:</td><td><input type="text" name="address" th:value="${employee!=null?employee.address:''}" /></td></tr>
+            <tr><td>Email:</td><td><input type="email" name="email" th:value="${employee!=null?employee.email:''}"/></td></tr>
+            <tr><td>Date of Birth:</td><td><input type="number" name="dob" th:value="${employee!=null?employee.dob:''}" /></td></tr>
+            <tr><td>Salary:</td><td><input type="number" name="salary" th:value="${employee!=null?employee.salary:''}"/></td></tr>
+
+            <tr><td colspan="2"><input type="submit" th:value="${employee!=null?'UPDATE':'SUBMIT'}"/></td></tr>
+        </table>
+    </form>
+
+    <br/>
+
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Sn</th>
+            <th scope="col">name</th>
+            <th scope="col">address</th>
+            <th scope="col">email</th>
+            <th scope="col">dob</th>
+            <th scope="col">salary</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+                <tr th:each="emp : ${employees}">
+                    <th scope="row" th:text="${emp.id}"></th>
+                    <th scope="row" th:text="${emp.name}"></th>
+                    <th scope="row" th:text="${emp.address}"></th>
+                    <th scope="row" th:text="${emp.email}"></th>
+                    <th scope="row" th:text="${emp.dob}" ></th>
+                    <th scope="row" th:text="${emp.salary}"></th>
+                    <th scope="row"><a th:href="@{/employee?action=U&id=}+${emp.id}">update</a> | <a th:href="@{/employee?action=D&id=}+${emp.id}">delete</a></th>
+                </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
